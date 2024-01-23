@@ -12,6 +12,12 @@ router.get("/games",(req, res) => {
 router.post("/game", (req, res) => {
   var {title, price, year} = req.body;
 
+  //console.log("teste: " + req.body);
+
+  //let title = req.body.title;
+  //let price = req.body.price;
+  //let year = req.body.year;
+
   if(title == undefined && price == undefined && year == undefined) {
     res.status(400).send({status : 400, Mensagem : `Campos vazios.`});
 

@@ -1,0 +1,57 @@
+<%- include("./includes/header.ejs"); -%>
+<%- include("./includes/navbar.ejs"); -%>
+
+<div class="container">
+  <br>
+  <h4>Cadastrar um Game:</h4>
+  <hr/>
+
+  <form>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="title">Nome</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Nome do jogo">
+      </div>
+    
+      <div class="form-group col-md-6">
+        <label for="year">Ano</label>
+        <input type="number" class="form-control" id="year" name="year" placeholder="Ano do jogo">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="price">Valor</label>
+        <input type="text" class="form-control" id="price" name="price" placeholder="valor do jogo">
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="createGame()">Cadastrar</button>
+  </form>
+</div>
+
+<%- include("./includes/footer.ejs"); -%>
+
+<script>
+function createGame() {
+  var titleInput = document.getElementById("title");
+  var yearInput = document.getElementById("year");
+  var priceInput = document.getElementById("price");
+
+  /*var game = {
+    price: priceInput.value,
+    title: titleInput.value,
+    year: yearInput.value,
+  }*/
+
+  //console.log(game);
+
+  axios.get("http://localhost:4567/games").then(response => {
+    if(response.status == 200) {
+      alert("Game Cadastrado com Sucesso.");
+    }
+  }).catch(e => {
+    console.log(e);
+  });
+}  
+</script>
