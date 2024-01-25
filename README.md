@@ -44,8 +44,8 @@ http://localhost:4567/game/id_game
 ### Para atualizar um jogo:
 - http://localhost:4567/views/consultar/id_jgo
 
-## Anotações
+## Observações
 
-- Todas precisam do id do jogo para terem sucesso no retorno
-- Todo retorno está em formato JSON com status de retorno
-- Os erros também estão sendo tratados na API e retornando em JSON
+- O retorno das API's estão em formato JSON com status de retorno
+- Foi usado o CDN da axios para interpretar o retorno das API's no CRUD
+- Os erros estão sendo tratados na API e retornando o motivo em JSON
