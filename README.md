@@ -35,13 +35,13 @@ http://localhost:4567/game/id_game
 
 ## O CRUD para alimentar a API
 
-### A API de listagem fica junto com a deletar na home:
+### A listagem de jogos fica  na home junto com opção de deletar:
 - http://localhost:4567/views/
 
-### A API para cadastrar um novo jogo fica em:
+### Para cadastrar um novo jogo:
 - http://localhost:4567/views/cadastrar
 
-### A API para atualizar um jogo fica em:
+### Para atualizar um jogo:
 - http://localhost:4567/views/consultar/id_jgo
 
 ## Anotações
