@@ -1,8 +1,8 @@
 ### CRUD alimentando e consumindo uma API
 
-## Dependicias
+## Dependências
 
-Dependicias utilizadas no Node para startar o projeto.
+Dependências utilizadas no Node.js para iniciar o projeto.
 
 ```bash
 "body-parser": "^1.20.2",
@@ -28,23 +28,24 @@ http://localhost:4567/game/id_game
 # POST - Cadastrar um novo jogo
 http://localhost:4567/game
 
-# DELETE - deletar um jogo
+# DELETE - Deletar um jogo
 http://localhost:4567/game/id_game
 
 ```
 
 ## O CRUD para alimentar a API
 
-### A API de listagem fica junto com a deletar na home
+### A API de listagem fica junto com a deletar na home:
 - http://localhost:4567/views/
 
-### A API para cadastrar um novo jogo fica em
+### A API para cadastrar um novo jogo fica em:
 - http://localhost:4567/views/cadastrar
 
-### A API para atualizar um jogo fica em
+### A API para atualizar um jogo fica em:
 - http://localhost:4567/views/consultar/id_jgo
 
 ## Anotações
 
-- Todas precisam do id do jogo para que tenham sucesso no retorno
-- Todo retorno esta em formato JSON com status de retorno
+- Todas precisam do id do jogo para terem sucesso no retorno
+- Todo retorno está em formato JSON com status de retorno
+- Os erros também estão sendo tratados na API e retornando em JSON
