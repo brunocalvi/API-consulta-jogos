@@ -1,0 +1,59 @@
+<%- include("./includes/header.ejs"); -%>
+<%- include("./includes/navbar.ejs"); -%>
+
+<div class="container">
+  <br>
+  <h4>Atualizar um Game:</h4>
+  <hr/>
+
+  <form action="" method="POST">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="title">Nome</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%= jogo.title %>">
+      </div>
+    
+      <div class="form-group col-md-6">
+        <label for="year">Ano</label>
+        <input type="number" class="form-control" id="year" name="year" value="<%= jogo.year %>">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="price">Valor</label>
+        <input type="text" class="form-control" id="price" name="price" value="<%= jogo.price %>">
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="editGame('<%= jogo.id %>')">Atualizar</button>
+  </form>
+</div>
+
+<%- include("./includes/footer.ejs"); -%>
+
+<script>
+  function editGame(id) {
+    var titleInput = document.getElementById("title");
+    var yearInput = document.getElementById("year");
+    var priceInput = document.getElementById("price");
+
+    var game = {
+      price: priceInput.value,
+      title: titleInput.value,
+      year: yearInput.value,
+    }
+
+    let edit = confirm("Deseja realmente alterar esse jogo ?");
+
+    if(edit == true) {
+      axios.put("http://localhost:4567/game/"+id, game).then(response => {
+        alert(response.data.Mensagem);
+        window.location.href = "http://localhost:4567/views/";
+
+      }).catch(e => {
+        alert(e.response.data.Mensagem);
+      });
+    }
+  }
+</script>

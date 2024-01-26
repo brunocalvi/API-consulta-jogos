@@ -11,25 +11,32 @@ router.get("/games",(req, res) => {
 
 router.post("/game", (req, res) => {
   var {title, price, year} = req.body;
+  let vazio = false;
 
-  //console.log("teste: " + req.body);
+  if(title == "") {
+    vazio = true;
+  }
 
-  //let title = req.body.title;
-  //let price = req.body.price;
-  //let year = req.body.year;
+  if(price == "") {
+    vazio = true;
+  }
 
-  if(title == undefined && price == undefined && year == undefined) {
-    res.status(400).send({status : 400, Mensagem : `Campos vazios.`});
+  if(year == "") {
+    vazio = true;
+  }
 
-  } else {
-    if(isNaN(price) && isNaN(year)) {
-      res.status(400).send({status : 400, Mensagem : `Parametro indevidos.`});
+  if(vazio == false) {
+    if(isNaN(price) || isNaN(year)) {
+      res.status(400).send({status : 400, Mensagem : `Esses campos precisam ser numeros.`});
 
     } else {
       Jogos.create({title: title, price: price, year: year}).then(() => {
         res.status(200).send({status : 200, Mensagem : `Jogo cadastrado com sucesso.`});
       });
     } 
+
+  } else {
+    res.status(400).send({status : 400, Mensagem : `Não é aceito campos vazios.`});
   }
 });
 
@@ -37,7 +44,7 @@ router.get("/game/:id", (req, res) => {
   var reqId = req.params.id;
 
   if(isNaN(reqId)) {
-    res.status(400).send({status : 400, Mensagem : `Parametro indevido.`});
+    res.status(400).send({status : 400, Mensagem : `ID esta errado.`});
 
   } else {
     var id = parseInt(reqId);
@@ -57,7 +64,7 @@ router.delete("/game/:id", (req, res) => {
   var reqId = req.params.id;
 
   if(isNaN(reqId)) {
-    res.status(400).send({status : 400, Mensagem : `Parametro indevido.`});
+    res.status(400).send({status : 400, Mensagem : `ID esta errado.`});
 
   } else {
     var id = parseInt(reqId);
@@ -73,7 +80,7 @@ router.put("/game/:id", (req, res) => {
   var {title, price, year} = req.body;
 
   if(isNaN(reqId)) {
-    res.status(400).send({status : 400, Mensagem : `Parametro indevido`})
+    res.status(400).send({status : 400, Mensagem : `ID esta errado.`})
 
   } else {
     var id = parseInt(reqId);
@@ -83,25 +90,30 @@ router.put("/game/:id", (req, res) => {
         res.status(404).send({status: 404, mensagem: `Nenhum registro encontrado`});
 
       } else {
-        if(title == undefined) {
+        if(title == "") {
           title = jogo.title;
         }
 
-        if(price == undefined) {
+        if(price == "") {
           price = jogo.title;
         }
 
-        if(year == undefined) {
+        if(year == "") {
           year = jogo.year;
         }
 
-        jogo.update({title: title, price: price, year: year},
-          {where: {id: id}}).then(() => {
-            res.status(200).send({status : 200, Mensagem : `Registro ${id} atualizado com sucesso.`});
-        })
+        if(isNaN(price) || isNaN(year)) {
+          res.status(400).send({status : 400, Mensagem : `Esses campos precisam ser numeros.`});
+    
+        } else {
+          jogo.update({title: title, price: price, year: year},
+            {where: {id: id}}).then(() => {
+              res.status(200).send({status : 200, Mensagem : `Registro ${id} atualizado com sucesso.`});
+          })
+        }
       }
     });
-  } 
+  }
 });
 
 module.exports = router;

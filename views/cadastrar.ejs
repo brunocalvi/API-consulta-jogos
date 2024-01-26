@@ -6,7 +6,7 @@
   <h4>Cadastrar um Game:</h4>
   <hr/>
 
-  <form>
+  <form action="" method="POST">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="title">Nome</label>
@@ -38,20 +38,18 @@ function createGame() {
   var yearInput = document.getElementById("year");
   var priceInput = document.getElementById("price");
 
-  /*var game = {
+  var game = {
     price: priceInput.value,
     title: titleInput.value,
     year: yearInput.value,
-  }*/
+  }
 
-  //console.log(game);
-
-  axios.get("http://localhost:4567/games").then(response => {
-    if(response.status == 200) {
-      alert("Game Cadastrado com Sucesso.");
-    }
+  axios.post("http://localhost:4567/game", game).then(response => {
+    alert(response.data.Mensagem);
+    window.location.href = "http://localhost:4567/views/";
+    
   }).catch(e => {
-    console.log(e);
+    alert(e.response.data.Mensagem);
   });
 }  
 </script>

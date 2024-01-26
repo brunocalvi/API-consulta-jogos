@@ -13,6 +13,7 @@
         <th scope="col">Jogo</th>
         <th scope="col">Lançamento</th>
         <th scope="col">Valor</th>
+        <th scope="col">#</th>
       </tr>
     </thead>
     <tbody id="games"></tbody>
@@ -35,6 +36,14 @@
                           <td>${game.title}</td>
                           <td>${game.year}</td>
                           <td>${game.price} R$</td>
+                          <td>
+                            <a href="/views/consultar/${game.id}" class="btn btn-primary" title="Editar">
+                              <i class="ri-file-edit-fill"></i>
+                            </a>
+                            <button type="button" class="btn btn-danger" onclick="deletarReg(${game.id});" title="Deletar">
+                              <i class="ri-chat-delete-fill"></i>
+                            </button>
+                          </td>
                         </tr>
                         `;
 
@@ -43,6 +52,19 @@
 
   }).catch(e => {
     console.log(e);
-
   });
+
+  function deletarReg(id) {
+    let del = confirm(`Deseja realmente deletar o registro ${id} ?`);
+
+    if(del == true) {
+      axios.delete("http://localhost:4567/game/"+id).then(response => {
+        alert(response.data.Mensagem);
+        window.location.href = "http://localhost:4567/views/";
+
+      }).catch(e => {
+        alert(e.response.data.Mensagem);
+      });
+    }
+  } 
 </script>

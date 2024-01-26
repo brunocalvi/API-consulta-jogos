@@ -9,16 +9,16 @@ const app = express();
 app.use(cors());
 app.set("view engine", "ejs");
 
+// BODY PARSER
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 // IMPORTANDO ROTAS
 app.use("/", RouterJogos);
 app.use("/views/", RouterViews);
 
-// BODY PARSER
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-
 app.listen(4567, () => {
-  console.log("API Liberada!");
+  console.log("API na porta 4567 Liberada!");
 });
 
 // DATABASE
