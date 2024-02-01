@@ -22,20 +22,20 @@ Dependências utilizadas no Node.js para iniciar o projeto.
 http://localhost:4567/game/listaGames
 
 # GET - Dados de um jogo
-http://localhost:4567/game/consultaGame/id
+http://localhost:4567/game/consultaGame/id_jogo
 
 # PUT - Atualizar um jogo
-http://localhost:4567/game/atualizaGame/:id
+http://localhost:4567/game/atualizaGame/:id_jogo
 
 # POST - Cadastrar um novo jogo
 http://localhost:4567/game/cadastraGame
 
 # DELETE - Deletar um jogo
-http://localhost:4567/game/deletaGame/id
+http://localhost:4567/game/deletaGame/id_jogo
 
 ```
 
-### API's de usuario:
+### API's de usuário:
 ```python
 # POST - Para se logar
 http://localhost:4567/user/auth (email, password)
@@ -45,7 +45,7 @@ http://localhost:4567/user/cadastro (name, email, password)
 
 ```
 
-## O CRUD para alimentar a API
+## O CRUD para alimentar a API's
 
 ### A listagem de jogos fica  na home junto com opção de deletar:
 - http://localhost:4567/lista
