@@ -1,3 +1,9 @@
+<script>
+  if(sessionStorage.getItem("token") == " ") {
+    window.location.replace("/");
+  }  
+</script>
+
 <%- include("./includes/header.ejs"); -%>
 <%- include("./includes/navbar.ejs"); -%>
 
@@ -38,6 +44,10 @@
     var yearInput = document.getElementById("year");
     var priceInput = document.getElementById("price");
 
+    const config = {
+      headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}`}
+    };
+
     var game = {
       price: priceInput.value,
       title: titleInput.value,
@@ -47,9 +57,9 @@
     let edit = confirm("Deseja realmente alterar esse jogo ?");
 
     if(edit == true) {
-      axios.put("http://localhost:4567/game/"+id, game).then(response => {
+      axios.put("http://localhost:4567/game/atualizaGame/"+id, game, config).then(response => {
         alert(response.data.Mensagem);
-        window.location.href = "http://localhost:4567/views/";
+        window.location.href = "http://localhost:4567/lista";
 
       }).catch(e => {
         alert(e.response.data.Mensagem);

@@ -1,0 +1,53 @@
+<%- include("./includes/header.ejs"); -%>
+
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="/img/cadeado.png" id="icon" alt="Cadeado" />
+      </div>
+
+      <!-- Login Form -->
+      <form action="/" method="POST">
+        <input type="text" id="email" name="email" class="fadeIn second" placeholder="login">
+        <input type="password" id="password" name="password" class="fadeIn third" placeholder="password">
+        <input type="button" class="fadeIn fourth" value="Acessar" onclick="fazerLogin();">
+      </form>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="/cadastro">Fazer um cadastro</a>
+      </div>
+
+    </div>
+  </div>
+
+<%- include("./includes/footer.ejs"); -%>
+
+<script>
+
+function fazerLogin() {
+
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  let dados = {
+        email: email,
+        password: password
+      };
+
+  axios.post("http://localhost:4567/user/auth", dados).then( response => {
+    sessionStorage.setItem("token", response.data.token);
+    window.location.replace("/lista");
+    
+  }).catch(e => {
+    alert(e.response.data.Mensagem);
+  });
+
+}
+
+  
+
+</script>

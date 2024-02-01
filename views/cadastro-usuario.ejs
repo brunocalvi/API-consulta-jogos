@@ -1,0 +1,52 @@
+<%- include("./includes/header.ejs"); -%>
+
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="/img/cadeado.png" id="icon" alt="Cadeado" />
+      </div>
+
+      <!-- Login Form -->
+      <form action="/" method="POST">
+        <input type="text" id="name" name="name" class="fadeIn second" placeholder="Nome Sobrenome">
+        <input type="text" id="email" name="email" class="fadeIn third" placeholder="E-mail">
+        <input type="password" id="password" name="password" class="fadeIn third" placeholder="password">
+        <input type="button" class="fadeIn fourth" value="Cadastra-se" onclick="cadastrarUsuario();">
+      </form>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="/">Fazer Login</a>
+      </div>
+
+    </div>
+  </div>
+
+<%- include("./includes/footer.ejs"); -%>
+
+<script>
+function cadastrarUsuario() {
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  let dados = {
+                name: name, 
+                email: email, 
+                password: password
+              }
+
+              //console.log(dados);
+
+  axios.post("http://localhost:4567/user/cadastro", dados).then(response => {
+    alert(response.data.Mensagem);
+    window.location.href = "http://localhost:4567/";
+
+  }).catch(e => {
+    alert(e.response.data.Mensagem);
+  }); 
+} 
+</script>

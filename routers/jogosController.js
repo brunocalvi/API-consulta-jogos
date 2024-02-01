@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const Jogos = require("../database/table");
+const Jogos = require("../database/jogos");
+const auth = require("../middleware/auth");
 
-router.get("/games",(req, res) => {
+router.get("/listaGames", (req, res) => {
   Jogos.findAll({raw: true, order:[['id','DESC']]})
   .then( jogos => {
-    res.status(200).json({status : 200, Mensagem : `Lista de jogos`, jogos});
+    res.status(200).json({status: 200, Mensagem: `Lista de jogos`, jogos});
   });
 });
 
-router.post("/game", (req, res) => {
+router.post("/cadastraGame", auth, (req, res) => {
   var {title, price, year} = req.body;
   let vazio = false;
 
@@ -27,60 +28,60 @@ router.post("/game", (req, res) => {
 
   if(vazio == false) {
     if(isNaN(price) || isNaN(year)) {
-      res.status(400).send({status : 400, Mensagem : `Esses campos precisam ser numeros.`});
+      res.status(400).send({status: 400, Mensagem: `Esses campos precisam ser numeros.`});
 
     } else {
       Jogos.create({title: title, price: price, year: year}).then(() => {
-        res.status(200).send({status : 200, Mensagem : `Jogo cadastrado com sucesso.`});
+        res.status(200).send({status: 200, Mensagem: `Jogo cadastrado com sucesso.`});
       });
     } 
 
   } else {
-    res.status(400).send({status : 400, Mensagem : `Não é aceito campos vazios.`});
+    res.status(400).send({status: 400, Mensagem: `Não é aceito campos vazios.`});
   }
 });
 
-router.get("/game/:id", (req, res) => {
+router.get("/consultaGame/:id", auth, (req, res) => {
   var reqId = req.params.id;
 
   if(isNaN(reqId)) {
-    res.status(400).send({status : 400, Mensagem : `ID esta errado.`});
+    res.status(400).send({status: 400, Mensagem: `ID esta errado.`});
 
   } else {
     var id = parseInt(reqId);
 
     Jogos.findOne({where: {id: id}}).then( jogo => {
       if(jogo == undefined) {
-        res.status(404).send({status : 404, Mensagem : `Nenhum registro encontrado.`});
+        res.status(404).send({status: 404, Mensagem: `Nenhum registro encontrado.`});
 
       } else {
-        res.status(200).json({status : 200, Mensagem : `jogo`, jogo});
+        res.status(200).json({status: 200, Mensagem: `jogo`, jogo});
       }
     });
   } 
 });
 
-router.delete("/game/:id", (req, res) => {
+router.delete("/deletaGame/:id", auth, (req, res) => {
   var reqId = req.params.id;
 
   if(isNaN(reqId)) {
-    res.status(400).send({status : 400, Mensagem : `ID esta errado.`});
+    res.status(400).send({status: 400, Mensagem: `ID esta errado.`});
 
   } else {
     var id = parseInt(reqId);
 
     Jogos.destroy({where: {id: id}}).then(() => {
-      res.status(200).send({status : 200, Mensagem : `Registro ${id} deletado com sucesso.`});
+      res.status(200).send({status: 200, Mensagem: `Registro ${id} deletado com sucesso.`});
     }); 
   } 
 });
 
-router.put("/game/:id", (req, res) => {
+router.put("/atualizaGame/:id", auth, (req, res) => {
   var reqId = req.params.id;
   var {title, price, year} = req.body;
 
   if(isNaN(reqId)) {
-    res.status(400).send({status : 400, Mensagem : `ID esta errado.`})
+    res.status(400).send({status: 400, Mensagem: `ID esta errado.`})
 
   } else {
     var id = parseInt(reqId);
@@ -103,12 +104,12 @@ router.put("/game/:id", (req, res) => {
         }
 
         if(isNaN(price) || isNaN(year)) {
-          res.status(400).send({status : 400, Mensagem : `Esses campos precisam ser numeros.`});
+          res.status(400).send({status: 400, Mensagem: `Esses campos precisam ser numeros.`});
     
         } else {
           jogo.update({title: title, price: price, year: year},
             {where: {id: id}}).then(() => {
-              res.status(200).send({status : 200, Mensagem : `Registro ${id} atualizado com sucesso.`});
+              res.status(200).send({status: 200, Mensagem: `Registro ${id} atualizado com sucesso.`});
           })
         }
       }

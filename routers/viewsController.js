@@ -1,8 +1,8 @@
 const express = require("express");
 const views = express.Router();
-const Jogos = require("../database/table");
+const Jogos = require("../database/jogos");
 
-views.get("/", (req, res) => {
+views.get("/lista", (req, res) => {
   res.render("index");
 });
 
@@ -18,8 +18,15 @@ views.get("/consultar/:id", (req, res) => {
 
   }).catch(err =>{
     res.render("index");
-
   })
+});
+
+views.get("/", (req, res) => {
+  res.render("login");
+});
+
+views.get("/cadastro", (req, res) => {
+  res.render("cadastro-usuario")
 });
 
 module.exports = views;

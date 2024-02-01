@@ -9,3 +9,14 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </body>
 </html>
+
+<script>
+function sairDoCrud() {
+  let sair = confirm("Deseja realmente sair ?");
+
+  if(sair == true) {
+    sessionStorage.setItem("token", " ");
+    window.location.replace("/");
+  }
+}
+</script>

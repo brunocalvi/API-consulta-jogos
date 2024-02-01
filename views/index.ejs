@@ -1,3 +1,9 @@
+<script>
+if(sessionStorage.getItem("token") == " ") {
+  window.location.replace("/");
+}  
+</script>
+
 <%- include("./includes/header.ejs"); -%>
 <%- include("./includes/navbar.ejs"); -%>
 
@@ -23,7 +29,7 @@
 <%- include("./includes/footer.ejs"); -%>
  
 <script>
-  axios.get("http://localhost:4567/games").then(response => {
+  axios.get("http://localhost:4567/game/listaGames").then(response => {
 
     var games = response.data.jogos;
     var list = document.getElementById("games");
@@ -37,7 +43,7 @@
                           <td>${game.year}</td>
                           <td>${game.price} R$</td>
                           <td>
-                            <a href="/views/consultar/${game.id}" class="btn btn-primary" title="Editar">
+                            <a href="/consultar/${game.id}" class="btn btn-primary" title="Editar">
                               <i class="ri-file-edit-fill"></i>
                             </a>
                             <button type="button" class="btn btn-danger" onclick="deletarReg(${game.id});" title="Deletar">
@@ -58,9 +64,14 @@
     let del = confirm(`Deseja realmente deletar o registro ${id} ?`);
 
     if(del == true) {
-      axios.delete("http://localhost:4567/game/"+id).then(response => {
+
+      const config = {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}`}
+      };
+
+      axios.delete("http://localhost:4567/game/deletaGame/"+id, config).then(response => {
         alert(response.data.Mensagem);
-        window.location.href = "http://localhost:4567/views/";
+        window.location.href = "http://localhost:4567/lista";
 
       }).catch(e => {
         alert(e.response.data.Mensagem);
