@@ -57,7 +57,7 @@
     let edit = confirm("Deseja realmente alterar esse jogo ?");
 
     if(edit == true) {
-      axios.put("http://localhost:4567/game/atualizaGame/"+id, game, config).then(response => {
+      axios.put("http://localhost:4567/api/atualizaGame/"+id, game, config).then(response => {
         alert(response.data.Mensagem);
         window.location.href = "http://localhost:4567/lista";
 

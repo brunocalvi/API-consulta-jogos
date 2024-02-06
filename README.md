@@ -16,26 +16,26 @@ Dependências utilizadas no Node.js para iniciar o projeto.
 
 ## Chamadas da API:
 
-### API's de jogos:
+### Endpoints de jogos:
 ```python
 # GET - Lista de Jogos
-http://localhost:4567/game/listaGames
+http://localhost:4567/api/listaGames
 
 # GET - Dados de um jogo
-http://localhost:4567/game/consultaGame/id_jogo
+http://localhost:4567/api/consultaGame/id_jogo
 
 # PUT - Atualizar um jogo
-http://localhost:4567/game/atualizaGame/:id_jogo
+http://localhost:4567/api/atualizaGame/:id_jogo
 
 # POST - Cadastrar um novo jogo
-http://localhost:4567/game/cadastraGame
+http://localhost:4567/api/cadastraGame
 
 # DELETE - Deletar um jogo
-http://localhost:4567/game/deletaGame/id_jogo
+http://localhost:4567/api/deletaGame/id_jogo
 
 ```
 
-### API's de usuário:
+### Endpoints de usuário:
 ```python
 # POST - Para se logar
 http://localhost:4567/user/auth (email, password)
@@ -55,6 +55,9 @@ http://localhost:4567/user/cadastro (name, email, password)
 
 ### Para atualizar um jogo:
 - http://localhost:4567/consultar/id_jogo
+
+### Para pegar o token de validação das API's:
+- http://localhost:4567/token
 
 ## Observações
 

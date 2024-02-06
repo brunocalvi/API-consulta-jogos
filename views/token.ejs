@@ -1,0 +1,26 @@
+<script>
+  if(sessionStorage.getItem("token") == " ") {
+    window.location.replace("/");
+  }  
+</script>
+
+<%- include("./includes/header.ejs"); -%>
+<%- include("./includes/navbar.ejs"); -%>
+
+<div class="container">
+  <br>
+  <h4>Pegar token:</h4>
+  <hr/>
+  <p>Token para validar as API's</p>
+
+  <div class="form-group">
+    <textarea class="form-control" id="token" rows="5"></textarea>
+  </div>
+</div>
+
+<%- include("./includes/footer.ejs"); -%>
+
+<script>
+  let token = sessionStorage.getItem("token");
+  document.getElementById("token").innerHTML = token;
+</script>

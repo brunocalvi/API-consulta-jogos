@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // IMPORTANDO ROTAS
-app.use("/game/", RouterJogos);
+app.use("/api/", RouterJogos);
 app.use("/", RouterViews);
 app.use("/user/", RouterUsers);
 

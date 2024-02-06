@@ -3,7 +3,7 @@ const router = express.Router();
 const Jogos = require("../database/jogos");
 const auth = require("../middleware/auth");
 
-router.get("/listaGames", (req, res) => {
+router.get("/listaGames", auth, (req, res) => {
   Jogos.findAll({raw: true, order:[['id','DESC']]})
   .then( jogos => {
     res.status(200).json({status: 200, Mensagem: `Lista de jogos`, jogos});

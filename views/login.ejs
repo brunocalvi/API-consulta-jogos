@@ -29,7 +29,6 @@
 <script>
 
 function fazerLogin() {
-
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
 
@@ -45,9 +44,6 @@ function fazerLogin() {
   }).catch(e => {
     alert(e.response.data.Mensagem);
   });
-
 }
-
-  
 
 </script>

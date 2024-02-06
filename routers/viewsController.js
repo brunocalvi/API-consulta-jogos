@@ -29,4 +29,8 @@ views.get("/cadastro", (req, res) => {
   res.render("cadastro-usuario")
 });
 
+views.get("/token", (req, res) => {
+  res.render("token")
+});
+
 module.exports = views;

@@ -54,7 +54,7 @@ function createGame() {
     year: yearInput.value,
   }
 
-  axios.post("http://localhost:4567/game/cadastraGame", game, config).then(response => {
+  axios.post("http://localhost:4567/api/cadastraGame", game, config).then(response => {
     alert(response.data.Mensagem);
     window.location.href = "http://localhost:4567/lista";
     

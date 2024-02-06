@@ -29,53 +29,53 @@ if(sessionStorage.getItem("token") == " ") {
 <%- include("./includes/footer.ejs"); -%>
  
 <script>
-  axios.get("http://localhost:4567/game/listaGames").then(response => {
 
-    var games = response.data.jogos;
-    var list = document.getElementById("games");
+const config = {
+  headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}`}
+};
 
-    games.forEach(game => {
-      var item = document.createElement("tr");
-      item.innerHTML = `
-                        <tr>
-                          <td>${game.id}</td>
-                          <td>${game.title}</td>
-                          <td>${game.year}</td>
-                          <td>${game.price} R$</td>
-                          <td>
-                            <a href="/consultar/${game.id}" class="btn btn-primary" title="Editar">
-                              <i class="ri-file-edit-fill"></i>
-                            </a>
-                            <button type="button" class="btn btn-danger" onclick="deletarReg(${game.id});" title="Deletar">
-                              <i class="ri-chat-delete-fill"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        `;
 
-      list.appendChild(item);
-    });
+axios.get("http://localhost:4567/api/listaGames", config).then(response => {
 
-  }).catch(e => {
-    console.log(e);
+  var games = response.data.jogos;
+  var list = document.getElementById("games");
+
+  games.forEach(game => {
+    var item = document.createElement("tr");
+    item.innerHTML = `
+                      <tr>
+                        <td>${game.id}</td>
+                        <td>${game.title}</td>
+                        <td>${game.year}</td>
+                        <td>${game.price} R$</td>
+                        <td>
+                          <a href="/consultar/${game.id}" class="btn btn-primary" title="Editar">
+                            <i class="ri-file-edit-fill"></i>
+                          </a>
+                          <button type="button" class="btn btn-danger" onclick="deletarReg(${game.id});" title="Deletar">
+                            <i class="ri-chat-delete-fill"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      `;
+
+    list.appendChild(item);
   });
+}).catch(e => {
+  console.log(e);
+});
 
-  function deletarReg(id) {
-    let del = confirm(`Deseja realmente deletar o registro ${id} ?`);
+function deletarReg(id) {
+  let del = confirm(`Deseja realmente deletar o registro ${id} ?`);
 
-    if(del == true) {
+  if(del == true) {
+    axios.delete("http://localhost:4567/api/deletaGame/"+id, config).then(response => {
+      alert(response.data.Mensagem);
+      window.location.href = "http://localhost:4567/lista";
 
-      const config = {
-        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}`}
-      };
-
-      axios.delete("http://localhost:4567/game/deletaGame/"+id, config).then(response => {
-        alert(response.data.Mensagem);
-        window.location.href = "http://localhost:4567/lista";
-
-      }).catch(e => {
-        alert(e.response.data.Mensagem);
-      });
-    }
-  } 
+    }).catch(e => {
+      alert(e.response.data.Mensagem);
+    });
+  }
+} 
 </script>
