@@ -7,6 +7,20 @@ const jwtSecret = "j7j&ZdqUy*y7x&Ms5qy(&jlTzJ19ouiM";
 user.post("/auth", (req, res) => {
   var {email, password} = req.body;
 
+  var HATEOAS = [
+    {
+      href: `http://localhost:4567/user/auth`,
+      method: `POST`,
+      rel: `token_login`
+    },
+    {
+      href: `http://localhost:4567/user/cadastro`,
+      method: `POST`,
+      rel: `cadastrar_user`
+    },
+  ]
+
+
   if(email != "" && password != "") {
     Usuario.findOne({where:{email: email}}).then(usuario => {
 
@@ -16,7 +30,7 @@ user.post("/auth", (req, res) => {
             if(err) {
               res.status(400).send({status : 400, Mensagem : `Falha ao gerar o token de acesso.`});
             } else {
-              res.status(200).send({status : 200, token : token});
+              res.status(200).send({status : 200, token : token, _link: HATEOAS});
             }
           });
         } else {
@@ -35,6 +49,19 @@ user.post("/cadastro", (req, res) => {
   var {name, email, password} = req.body;
   let vazio = false;
 
+  var HATEOAS = [
+    {
+      href: `http://localhost:4567/user/auth`,
+      method: `POST`,
+      rel: `token_login`
+    },
+    {
+      href: `http://localhost:4567/user/cadastro`,
+      method: `POST`,
+      rel: `cadastrar_user`
+    },
+  ]
+
   if(name == "") {
     vazio = true;
   }
@@ -52,7 +79,7 @@ user.post("/cadastro", (req, res) => {
 
       if(usuario == undefined) {
         Usuario.create({name: name, email: email, password: password}).then(() => {
-          res.status(200).send({status : 200, Mensagem : `Usuário cadastrado com sucesso.`});
+          res.status(200).send({status : 200, Mensagem : `Usuário cadastrado com sucesso.`, _link: HATEOAS});
         });
         
       } else {
